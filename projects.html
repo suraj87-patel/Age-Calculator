@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body><fieldset>
+    <style>
+   
+     * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           font-family: Arial, sans-serif;
+         }
+    </style>
+    <div class="contain">
+<h3>Find Your Age</h3>
+<input type="date" id="dob" >
+<br><br>
+<button id="predictBtn">Predict</button>
+<p id="result"></p>
+    </div>
+
+    <script>
+    document.getElementById("predictBtn").addEventListener("click", function() {
+
+        let dob = document.getElementById("dob").value;
+
+        if (dob === "") {
+            alert("Please enter your Date of Birth");
+            return;
+        }
+
+        let birthDate = new Date(dob);
+        let today = new Date();
+
+        if (birthDate > today) {
+            alert("Date of Birth cannot be in the future");
+            return;
+        }
+
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+            months--;
+
+            let previousMonth = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                0
+            );
+
+            days += previousMonth.getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        document.getElementById("result").innerHTML =
+            "Your Age is " + years + " Years, " +
+            months + " Months and " + days + " Days";
+
+    });
+</script>
+    </fieldset>
+
+</body>
+</html>
